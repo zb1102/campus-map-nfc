@@ -3,12 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-  <meta name="theme-color" content="#ffffff">
-  <title>校园地图</title>
+  <meta name="theme-color" content="#0b4737">
+  <title>毕业快乐</title>
   <style>
     :root {
       color-scheme: light;
-      background: #fff;
+      --green: #0b4737;
+      --gold: #e7b95b;
+      --paper: #fff8ea;
+      --ink: #13241f;
     }
 
     * {
@@ -20,84 +23,217 @@
       width: 100%;
       min-height: 100%;
       margin: 0;
-      background: #fff;
     }
 
     body {
-      overflow: auto;
+      min-height: 100svh;
+      color: var(--paper);
+      background: var(--green);
+      font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+      overflow-x: hidden;
       -webkit-text-size-adjust: 100%;
     }
 
-    main {
-      width: 100%;
+    .page {
+      position: relative;
       min-height: 100svh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      background: #fff;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+      isolation: isolate;
+      overflow: hidden;
     }
 
-    .map-image {
-      display: block;
+    .school-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: auto;
-      min-height: 100svh;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.08) contrast(1.03);
+      z-index: -3;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(5, 33, 26, .44), rgba(5, 33, 26, .82)),
+        radial-gradient(circle at 18% 12%, rgba(231, 185, 91, .28), transparent 30%),
+        radial-gradient(circle at 82% 82%, rgba(255, 248, 234, .15), transparent 34%);
+      z-index: -2;
+    }
+
+    .page::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(255, 248, 234, .38);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .content {
+      width: min(92vw, 760px);
+      min-height: min(780px, calc(100svh - 56px));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 64px) clamp(18px, 5vw, 52px);
+      background: rgba(6, 48, 38, .46);
+      border: 1px solid rgba(255, 248, 234, .28);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .28);
+    }
+
+    .logo-wrap {
+      width: clamp(76px, 18vw, 128px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      margin-bottom: clamp(26px, 5vw, 46px);
+      border-radius: 50%;
+      background: rgba(255, 248, 234, .94);
+      border: 2px solid rgba(231, 185, 91, .88);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, .22);
+    }
+
+    .college-logo {
+      width: 74%;
+      height: 74%;
       object-fit: contain;
-      object-position: top center;
-      background: #fff;
-      touch-action: auto;
-      -webkit-user-select: none;
-      user-select: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--gold);
+      font-size: clamp(13px, 3.5vw, 18px);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--paper);
+      font-size: clamp(46px, 13vw, 98px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-wrap: balance;
+      text-shadow: 0 5px 24px rgba(0, 0, 0, .32);
+    }
+
+    .message {
+      width: min(100%, 590px);
+      margin: clamp(24px, 5vw, 40px) auto 0;
+      color: rgba(255, 248, 234, .93);
+      font-size: clamp(18px, 4.4vw, 27px);
+      line-height: 1.8;
+      letter-spacing: 0;
+    }
+
+    .signature {
+      margin-top: clamp(26px, 5vw, 44px);
+      color: var(--gold);
+      font-size: clamp(15px, 3.7vw, 20px);
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      letter-spacing: .08em;
     }
 
     .missing {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
       display: none;
-      width: min(92vw, 520px);
-      margin: 18vh auto 0;
-      padding: 18px 20px;
-      border: 1px solid #d8dde7;
-      border-radius: 8px;
-      color: #273242;
-      font: 16px/1.7 "Microsoft YaHei", "PingFang SC", sans-serif;
-      background: #fff;
+      padding: 10px 12px;
+      color: #24312d;
+      background: rgba(255, 248, 234, .94);
+      border: 1px solid rgba(231, 185, 91, .65);
+      font: 13px/1.6 "Microsoft YaHei", "PingFang SC", sans-serif;
     }
 
     .missing code {
-      padding: 2px 5px;
+      padding: 1px 4px;
       border-radius: 4px;
-      background: #eef2f7;
+      background: rgba(11, 71, 55, .12);
       font-family: Consolas, monospace;
+    }
+
+    @media (max-width: 520px) {
+      .content {
+        min-height: calc(100svh - 56px);
+      }
+
+      .page::after {
+        inset: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
+  <main class="page">
     <img
-      class="map-image"
-      src="assets/campus-map.png"
-      alt="校园地图"
-      draggable="false"
-      data-candidates="assets/campus-map.png,assets/campus-map.jpg,assets/campus-map.jpeg,assets/campus-map.webp"
+      class="school-bg"
+      src="assets/school-bg.png"
+      alt=""
+      aria-hidden="true"
+      data-candidates="assets/school-bg.png,assets/school-bg.jpg,assets/school-bg.jpeg,assets/school-bg.webp,assets/campus-map.png"
     >
+
+    <section class="content" aria-label="毕业祝福">
+      <div class="logo-wrap">
+        <img
+          class="college-logo"
+          src="assets/college-logo.png"
+          alt="学院 Logo"
+          data-candidates="assets/college-logo.png,assets/college-logo.jpg,assets/college-logo.jpeg,assets/college-logo.webp"
+        >
+      </div>
+
+      <p class="eyebrow">Class of 2026</p>
+      <h1>毕业快乐</h1>
+      <p class="message">
+        愿我们带着校园里的光，奔赴下一段山海。<br>
+        前程似锦，青春不散场。
+      </p>
+      <p class="signature">致每一位即将启程的同学</p>
+    </section>
+
     <div class="missing">
-      没有找到地图图片。请把你的校园地图保存为
-      <code>assets/campus-map.png</code>
-      后重新打开本页面。
+      请上传背景图 <code>assets/school-bg.png</code> 和学院 Logo <code>assets/college-logo.png</code>。
     </div>
   </main>
+
   <script>
-    const image = document.querySelector(".map-image");
-    const candidates = image.dataset.candidates.split(",");
-    let index = 0;
+    function loadCandidates(selector, onMissing) {
+      const image = document.querySelector(selector);
+      const candidates = image.dataset.candidates.split(",");
+      let index = 0;
 
-    image.addEventListener("error", () => {
-      index += 1;
-      if (index < candidates.length) {
-        image.src = candidates[index];
-        return;
-      }
+      image.addEventListener("error", () => {
+        index += 1;
+        if (index < candidates.length) {
+          image.src = candidates[index];
+          return;
+        }
 
-      image.style.display = "none";
+        image.style.display = "none";
+        if (onMissing) onMissing();
+      });
+    }
+
+    loadCandidates(".school-bg", () => {
+      document.querySelector(".missing").style.display = "block";
+    });
+
+    loadCandidates(".college-logo", () => {
+      document.querySelector(".logo-wrap").style.display = "none";
       document.querySelector(".missing").style.display = "block";
     });
   </script>
