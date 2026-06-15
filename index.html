@@ -96,7 +96,15 @@
       inset: 10px 6px 84px;
       border-radius: 28px;
       background:
-        linear-gradient(180deg, rgba(23, 49, 86, 0.36) 0%, rgba(35, 66, 109, 0.28) 22%, rgba(43, 71, 110, 0.2) 48%, rgba(52, 79, 118, 0.12) 72%, rgba(52, 79, 118, 0.02) 100%);
+        linear-gradient(
+          180deg,
+          rgba(221, 235, 255, 0.18) 0%,
+          rgba(174, 203, 239, 0.12) 16%,
+          rgba(35, 66, 109, 0.24) 32%,
+          rgba(43, 71, 110, 0.2) 52%,
+          rgba(52, 79, 118, 0.12) 74%,
+          rgba(52, 79, 118, 0.02) 100%
+        );
       backdrop-filter: blur(3px);
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -107,8 +115,14 @@
     .logo-bar {
       width: min(100%, 360px);
       margin-bottom: 26px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--rule);
+      padding: 14px 14px 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(225, 237, 255, 0.08));
+      border: 1px solid rgba(220, 235, 255, 0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 10px 24px rgba(17, 40, 73, 0.08);
     }
 
     .college-logo {
@@ -117,8 +131,9 @@
       height: auto;
       object-fit: contain;
       filter:
-        drop-shadow(0 10px 24px rgba(8, 22, 46, 0.3))
-        brightness(1.08);
+        drop-shadow(0 8px 18px rgba(8, 22, 46, 0.18))
+        brightness(1.14)
+        saturate(1.02);
     }
 
     .eyebrow {
@@ -215,6 +230,7 @@
 
       .logo-bar {
         width: min(100%, 480px);
+        padding: 16px 18px 20px;
       }
 
       .message {
